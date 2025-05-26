@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Memory Game</title>
+
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <section class="memory-game">
+    <div class="memory-card" data-superhero="1">
+      <img class="front-face" src="../img/aurelia.svg" alt="Aurelia" />
+      <img class="back-face" src="../img/js-badge.svg" alt="JS Badge" />
+    </div>
+    <div class="memory-card" data-superhero="1">
+      <img class="front-face" src="../img/aurelia.svg" alt="Aurelia" />
+      <img class="back-face" src="../img/js-badge.svg" alt="JS Badge" />
+    </div>
+
+    <div class="memory-card" data-superhero="2">
+      <img class="front-face" src="../img/vue.svg" alt="Vue" />
+      <img class="back-face" src="../img/js-badge.svg" alt="JS Badge" />
+    </div>
+    <div class="memory-card" data-superhero="2">
+      <img class="front-face" src="../img/vue.svg" alt="Vue" />
+      <img class="back-face" src="../img/js-badge.svg" alt="JS Badge" />
+    </div>
+
+    <div class="memory-card" data-superhero="3">
+      <img class="front-face" src="../img/angular.svg" alt="Angular" />
+      <img class="back-face" src="../img/js-badge.svg" alt="JS Badge" />
+    </div>
+    <div class="memory-card" data-superhero="3">
+      <img class="front-face" src="img/angular.svg" alt="Angular" />
+      <img class="back-face" src="../img/js-badge.svg" alt="JS Badge" />
+    </div>
+
+    <div class="memory-card" data-superhero="4">
+      <img class="front-face" src="../img/ember.svg" alt="Ember" />
+      <img class="back-face" src="../img/js-badge.svg" alt="JS Badge" />
+    </div>
+    <div class="memory-card" data-superhero="4">
+      <img class="front-face" src="../img/ember.svg" alt="Ember" />
+      <img class="back-face" src="../img/js-badge.svg" alt="JS Badge" />
+    </div>
+
+    <div class="memory-card" data-superhero="5">
+      <img class="front-face" src="../img/backbone.svg" alt="Backbone" />
+      <img class="back-face" src="../img/js-badge.svg" alt="JS Badge" />
+    </div>
+    <div class="memory-card" data-superhero="5">
+      <img class="front-face" src="../img/backbone.svg" alt="Backbone" />
+      <img class="back-face" src="../img/js-badge.svg" alt="JS Badge" />
+    </div>
+
+    <div class="memory-card" data-superhero="6">
+      <img class="front-face" src="../img/react.svg" alt="React" />
+      <img class="back-face" src="../img/js-badge.svg" alt="JS Badge" />
+    </div>
+    <div class="memory-card" data-superhero="6">
+      <img class="front-face" src="../img/react.svg" alt="React" />
+      <img class="back-face" src="../img/js-badge.svg" alt="JS Badge" />
+    </div>
+  </section>
+
+  <script src="scripts.js"></script>
+  <script type="">
+    const memory_cards = document.querySelectorAll(".memory-card")
+
+    console.log(memory_cards);
+    for (const card of memory_cards) {
+      console.log("apiUrl");
+      const superhero = card.dataset.superhero;
+      const imgElement = card.querySelector('.front-face');
+      // Define the API URL
+      // const apiUrl = 'https://akabab.github.io/superhero-api/api/id/${superhero}.json';
+      const apiUrl = 'https://akabab.github.io/superhero-api/api/id/' + superhero + '.json';
+      console.log(apiUrl);
+        
+      // // Make a GET request
+      fetch(apiUrl)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json(); // json: tipe file kayak dictionary
+        })
+        .then(data => { // data: udah bukan link tapi json file
+          console.log(data.images.sm);
+          imgElement.src = data.images.sm
+          // frontFace.src = data.images.sm;
+          // frontFace.alt = data.name
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+
+    
+  </script>
+</body>
+</html>
