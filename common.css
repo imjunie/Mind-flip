@@ -17,7 +17,7 @@ body{
     height: 100vh;
 }
 
-.maincontainer {
+/* .maincontainer {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -77,4 +77,23 @@ body{
     text-align: center;
     line-height: 200px;
 
+} */
+
+.container1 {
+    align-items: center;
+    position: relative;
+    width: 100%;
+    
+    background-color: #fff4cc;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px #0000001a;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 2% auto;
+    max-width: 1130px;
+    min-height: 88vh;
+    padding: 15px;
+    text-align: center;
+    transition: filter .3s ease-in-out;
 }
