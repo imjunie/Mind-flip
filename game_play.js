@@ -1,11 +1,8 @@
-// 카드 데이터
-// const icons = ['🍎', '🍋', '🍇', '🍉', '🍓', '🥑', '🍒', '🍑'];
-
 const params = new URLSearchParams(window.location.search);
 const value = params.get("value");
 
 
-// GenerateRandomNumbers 
+// 무작위 정수 생성
 
 function generateRandomNumbers(count, max) {
     let numbers = new Set();
@@ -15,30 +12,6 @@ function generateRandomNumbers(count, max) {
     }
     return Array.from(numbers);
 }
-
-// function imageAPICall(id) {
-//     const apiUrl = 'https://akabab.github.io/superhero-api/api/id/' + id + '.json';
-//     console.log(apiUrl);
-
-//     // Make a GET Request
-//     fetch(apiUrl)
-//     .then(response => {
-//         console.log(response)
-//         if (response.status === 200) {
-//             return response.json();
-//         }
-//         else {
-//             throw new Error('네트워크의 응답이 안 좋습니다.')
-//         }
-//     })
-//     .then(data => {
-//         console.log(data.images.sm);
-//         return data.images.sm;
-//     })
-//     .catch(error => {
-//         console.error('오류:', error);
-//     });
-// }
 
 async function imageAPICall(id) {
     const apiUrl = 'https://akabab.github.io/superhero-api/api/id/' + id + '.json';
@@ -70,7 +43,6 @@ async function renderCards(cards) {
         `);
     } 
 }
-
 
 let four = generateRandomNumbers(value, 30);
 console.log(four);
