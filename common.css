@@ -77,23 +77,25 @@ body{
     /* 
     font-size:25px;
     border-radius: 10px;
-    text-align: center;
-    line-height: 200px; */
+    text-align: center; 
+    line-height: 1.5;  얘는 그 글자 두줄 이상인데 줄간격(행간)*/ 
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     
     background-color: #fff0f3;
-    width:200px;
-    height: 120px;
+    width:300px;
+    height: 170px;
     margin: 20px;
-    align-items: center;
     border-radius: 10px;
     box-shadow: 0 4px 6px #0000001a;
     color: #000;
     cursor: pointer;
-    display: flex;
-    flex-direction: column;
+
     font-size: 25px;
     font-weight: 700;
-    justify-content: center;
     text-decoration: none;
 
 }
