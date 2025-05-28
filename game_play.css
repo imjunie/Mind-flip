@@ -6,17 +6,11 @@
 
 body {
     height: 100vh;
+    margin: 0;
     display: flex; 
     background: #fafafa;
-} 
-
-body {
-    display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
-    margin: 0;
-    background: #fafafa;
     font-family: sans-serif;
 }
 
@@ -26,41 +20,58 @@ h1 {
     font-size: 2rem;
 }
 
+
+/* 다시 수정할 것임임 */
+.grid-container {
+  grid-template-columns: repeat(var(--game-value, 4), 1fr);
+}
+
 .game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 90px);
+    gap: 15px;
+    perspective: 1000px;
+}
+body.value-4 .grid-container {
     display: grid;
     grid-template-columns: repeat(4, 96px);
     gap: 15px;
     perspective: 1000px;
 }
+body.value-6 .grid-container {
+  grid-template-columns: repeat(6, 1fr);
+}
+/* 여기까지 */
+
 
 .card {
     position: relative;
     width: 96px;
-    height: 144px;
+    height: 140px;
     transform-style: preserve-3d;
     transition: transform 0.4s;
     cursor: pointer;
 }
 
-.card.is-flipped {
+/* .card.is-flipped {
     transform: rotateY(180deg);
-
-}
+} */
 
 .card.is-matched {
     pointer-events: none;
     opacity: 0.5;
+    /* transform: rotateY(180deg) !important; */
+    /* transform-style: preserve-3d; */
 }
 
-
 /*주은*/
-.card.is-flipped,
-.card.is-matched {
+.card.is-flipped{
     transform: rotateY(180deg);
 }
 
 .card.is-flipped.is-matched {
     animation: matchBounce 0.4s ease-out forwards;
+    transform: rotateY(0deg);
 }
 /*주은*/
 
@@ -84,6 +95,10 @@ h1 {
 .card__back {
     background: #333;
     transform: rotateY(180deg);
+}
+
+.card.is-matched .card__back {
+  backface-visibility: visible;
 }
 
 .back-face {

@@ -58,6 +58,36 @@ async function imageAPICall(id) {
     }
 }
 
+// TRY TO TAKE ALL API
+async function imageAPICall() {
+    const apiUrl = 'https://akabab.github.io/superhero-api/api/all.json';
+    console.log(apiUrl);
+    try {
+        const response = await fetch(apiUrl);
+        if (response.status === 200) { // HTTP 응답 상태 코드 참고
+            const data = await response.json(); // Parse JSON
+            console.log(data);
+            return data;
+        }
+        else {
+            throw new Error('네트워크의 응답이 안 좋습니다.')
+        }
+    } catch (error) {
+        console.error('오류:', error);
+        return null;
+    }
+}
+const apiUrl = 'https://akabab.github.io/superhero-api/api/all.json';
+console.log(apiUrl);
+const response =  fetch(apiUrl);
+if (response.status === 200) { // HTTP 응답 상태 코드 참고
+    const data =  response.json(); // Parse JSON
+    console.log(data);}
+
+
+
+
+
 async function renderCards(cards) {
     for (const id of cards) {
         const imageURL = await imageAPICall(id);
