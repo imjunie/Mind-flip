@@ -36,7 +36,7 @@ async function imageAPICall(id) {
     }
 }
 
-// 올리비아: 해보기
+// ---올리비아: 해보기---
 // async function imageAPICall() {
 //     const apiUrl = 'https://akabab.github.io/superhero-api/api/all.json';
 //     console.log(apiUrl);
@@ -73,7 +73,7 @@ async function fetchData() {
 }
 
 fetchData();
-// 올리비아
+// ---올리비아---
 
 
 
