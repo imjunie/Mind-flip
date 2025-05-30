@@ -21,9 +21,9 @@ h1 {
 }
 
 
-/* 다시 수정할 것임임 */
+/* 다시 수정할 것임 */
 .grid-container {
-  grid-template-columns: repeat(var(--game-value, 4), 1fr);
+    grid-template-columns: repeat(var(--game-value, 4), 1fr);
 }
 
 .game-board {
@@ -93,7 +93,7 @@ body.value-6 .grid-container {
 }
 
 .card__back {
-    background: #333;
+    background: white;
     transform: rotateY(180deg);
 }
 
