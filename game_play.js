@@ -21,8 +21,8 @@ function generateRandomNumbers(count, max) {
 async function imageAPICall(id) {
     const apiUrl = 'https://akabab.github.io/superhero-api/api/id/' + id + '.json';
     console.log(apiUrl);
-    try{
-        const response = await fetch(apiUrl);
+    try {
+        const response = await fetch(apiUrl, {method: "GET"});
         if (response.status === 200) { // HTTP 응답 상태 코드 참고고
             const data = await response.json(); // Parse JSON
             return data.images.xs;
@@ -91,7 +91,7 @@ async function renderCards(cards) {
 }
 
 
-let images = generateRandomNumbers(value, 20);
+let images = generateRandomNumbers(value, 30);
 console.log(images);
 
 // const icons = ['🍎', '🍋', '🍇', '🍉'];
@@ -139,7 +139,7 @@ board.addEventListener('click', e => {
             firstCard = null;
             
             if (document.querySelectorAll('.is-matched').length === cards.length) {
-                setTimeout(() => alert('🎉 전부 맞혔어요!'), 300);
+                setTimeout(() => alert('🎉 전부 맞혔어요!'), 10); // in ms (works like delay, run the function after certain ms)
             }
         } else {
             lockBoard = true;
