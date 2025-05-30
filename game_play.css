@@ -61,6 +61,7 @@ body.value-12 .game-board {
 
 .card__face { /*카드 앞면, 뒷면 공통 기본스타일일*/
     border-radius: 10px;
+    box-shadow: 0 4px 6px #0000001a;
     position: absolute;
     inset: 0;
     display: flex;
@@ -68,6 +69,15 @@ body.value-12 .game-board {
     align-items: center;
     backface-visibility: hidden; /*뒷면일 때 앞면 숨김*/
 }
+
+.back-face {
+    width: 100%;
+    height: 100%;
+    /* padding: 15px; */
+    border-radius: 10px;
+    
+}
+
 .card__front { /*카드 앞면*/
     background: #c5abee;
 }
@@ -75,4 +85,5 @@ body.value-12 .game-board {
     background: white;
     transform: rotateY(180deg);/*180도 회전돼서 뒷면처럼 보이게*/
 }
+
 
