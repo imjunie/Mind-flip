@@ -11,22 +11,25 @@
 }
 
 
-/*
+
 .game-board {
     display: grid;
-    grid-template-columns: repeat(6, 90px);
-    /*가로4칸(4 x 90px)에 카드 간 간격 15px)*
+    /* grid-template-columns: repeat(4, 90px); */
+    /*가로4칸(4 x 90px)에 카드 간 간격 15px)*/
     gap: 15px;
     perspective: 1000px;
-    /*3D 뒤집기 효과 
-}*/
-
-/* body.value-4 .grid-board {
-    grid-template-columns: repeat(4, 96px);
+    /*3D 뒤집기 효과*/
 }
-body.value-6 .grid-board {
+
+body.value-6 .game-board {
+    grid-template-columns: repeat(4, 1fr);
+}
+body.value-9 .game-board {
     grid-template-columns: repeat(6, 1fr);
-} */
+}
+body.value-12 .game-board {
+    grid-template-columns: repeat(8, 1fr);
+}
 
 .card {
     position: relative;
