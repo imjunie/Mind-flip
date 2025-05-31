@@ -39,7 +39,7 @@ body.value-4 .grid-container {
     perspective: 1000px;
 }
 body.value-6 .grid-container {
-  grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, 1fr);
 }
 /* 여기까지 */
 
@@ -98,7 +98,7 @@ body.value-6 .grid-container {
 }
 
 .card.is-matched .card__back {
-  backface-visibility: visible;
+    backface-visibility: visible;
 }
 
 .back-face {
