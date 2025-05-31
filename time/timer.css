@@ -1,0 +1,33 @@
+ body {
+      background-color: #f0f8ff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    #timer {
+      font-size: 100px;
+      font-weight: bold;
+      color: #333;
+      animation: pulse 0.3s ease;
+      transition: color 0.5s, background-color 0.5s;
+      padding: 20px 40px;
+      border-radius: 20px;
+      background-color: #ffffffaa;
+      box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+      100% { transform: scale(1); }
+    }
+
+    .ended {
+      background-color: #ff4d4d;
+      color: white;
+      animation: none;
+    }

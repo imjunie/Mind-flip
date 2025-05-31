@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>30초 타이머</title>
+   <link rel="stylesheet" href="timer.css">
+</head>
+<body>
+  <div id="timer">30</div>
+
+  <script>
+    let time = 30;
+    const timerElement = document.getElementById("timer");
+
+    const updateTimer = () => {
+      timerElement.textContent = time;
+      timerElement.style.animation = "none"; // 애니메이션 리셋
+      void timerElement.offsetWidth; // 리플로우 트릭으로 animation 재실행
+      timerElement.style.animation = "pulse 0.3s ease";
+    };
+
+    const countdown = setInterval(() => {
+      time--;
+      if (time <= 0) {
+        clearInterval(countdown);
+        timerElement.textContent = "시간 종료!";
+        timerElement.classList.add("ended");
+      } else {
+        updateTimer();
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

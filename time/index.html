@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>30초 타이머 (기본)</title> 
+</head>
+<body>
+  <h1 id="timer">30</h1>
+
+  <script>
+       let time = 30; // 시작 시간 (초 단위)
+
+    const timerElement = document.getElementById("timer");
+
+    const countdown = setInterval(() => {
+      time--; // 1초씩 감소
+      timerElement.textContent = time;
+
+      if (time <= 0) {
+        clearInterval(countdown); // 타이머 종료
+        timerElement.textContent = "시간 종료!";
+      }
+    }, 1000); // 1000ms = 1초
+  </script>
+</body>
+</html>
