@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <title>30초 타이머</title>
+  <link rel="stylesheet" href="timer2.css">
+</head>
+<body>
+
+  <div id="timer">30</div>
+  <div class="progress-container">
+    <div class="progress-bar" id="progressBar"></div>
+  </div>
+
+  <script>
+    // 타이머 진행 바 추가 (시간이 줄어들면서 진행 바도 줄어드는 효과)
+    const TOTAL_TIME = 30;
+    let time = TOTAL_TIME;
+
+    const timerElement = document.getElementById("timer");
+    const progressBar = document.getElementById("progressBar");
+
+    const updateDisplay = () => {
+      timerElement.textContent = time;
+      const percentage = (time / TOTAL_TIME) * 100;
+      progressBar.style.width = `${percentage}%`;
+
+      // 애니메이션 효과 리셋
+      timerElement.style.animation = "none";
+      void timerElement.offsetWidth;
+      timerElement.style.animation = "pulse 0.3s ease";
+    };
+
+    const countdown = setInterval(() => {
+      time--;
+
+      if (time <= 0) {
+        clearInterval(countdown);
+        timerElement.textContent = "시간 종료!";
+        timerElement.classList.add("ended");
+        progressBar.style.width = "0%";
+        progressBar.classList.add("ended");
+      } else {
+        updateDisplay();
+      }
+    }, 1000);
+  </script>
+
+</body>
+</html>
