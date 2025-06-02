@@ -1,9 +1,23 @@
 // 
 const params = new URLSearchParams(window.location.search);
 const value = params.get("value");
+const mode = params.get("mode") || "easy"; // 기본값을 "easy"로 설정
+let TOTAL_TIME;
+
+if (mode === "hard") {
+  TOTAL_TIME = 30.00; // hard 모드: 30초
+} else {
+    TOTAL_TIME = 60.00; // easy 모드: 60초
+}
+
+let remainingTime = TOTAL_TIME; // 남은 시간 초기화
+let timerStarted = false; // 타이머 시작 여부
+let timerExpired = false; // 타이머 만료 여부
+let timerInterval = null; // 타이머 인터벌 변수
+const timerElement = document.getElementById('timer');
 
 if (value) {
-  document.body.classList.add(`value-${value}`);
+    document.body.classList.add(`value-${value}`);
 }
 
 // 랜던(무작위) 정수 생성
@@ -59,17 +73,17 @@ async function imageAPICall(id) {
 const apiUrl = 'https://akabab.github.io/superhero-api/api/all.json';
 
 async function fetchData() {
-  try {
+    try {
     const response = await fetch(apiUrl);
     if (response.status === 200) {
       const data = await response.json(); // properly await the parsed JSON
-      console.log(data);
+        console.log(data);
     } else {
-      console.error("Failed to fetch: Status code", response.status);
+        console.error("Failed to fetch: Status code", response.status);
     }
-  } catch (error) {
+    } catch (error) {
     console.error("Fetch error:", error);
-  }
+    }
 }
 
 fetchData();
@@ -105,6 +119,26 @@ const board = document.getElementById('board');
 // 카드 생성
 renderCards(cards);
 
+// 게임 시작 시 카드 보여주고, 4초 뒤에 카드 뒤집기
+function startTimer() {
+    if (timerStarted) return;  // 타이머가 이미 시작되었으면 중복 시작 방지
+    timerStarted = true;
+
+timerIntervalId = setInterval(() => {
+    remainingTime -= 0.01; // 0.01초 단위로 감소
+    if (remainingTime <= 0) {
+        clearInterval(timerIntervalId);
+        remainingTime = 0;
+        timerExpired = true;
+        lockBoard = true; // 타이머가 만료되면 보드 잠금
+        timerElement.textContent = '00.00'; // 타이머 표시 업데이트
+        timerElement.classList.add('ended'); // 끝났을 때 스타일 추가할 수 있게 클래스만듦
+        setTimeout(() => alert('⏰ 시간이 다 되었습니다!'), 10);
+} else {
+    timerElement.texContent = remainingTime.toFixed(2).padStart(5, '0'); // 2자리 소수점으로 표시
+}
+}, 10); // 10ms 간격으로 타이머 업데이트 10ms = 0.01초
+}
 
 
 // 게임 로직
@@ -115,6 +149,9 @@ let lockBoard = false;
 
 
 board.addEventListener('click', e => {
+    // 남은 시간 0이면 클릭 막기
+    if (timerExpired) return;
+
     // .addEventListener: 사용자가 클릭할 때마다 안에 있는 프로그램이 실행됨
     const card = e.target.closest('.card');
     if (!card || lockBoard || card === firstCard || card.classList.contains('is-matched')) return;
@@ -124,6 +161,9 @@ board.addEventListener('click', e => {
     // 3. 이미 첫 번째 카드로 선택된 카드거나(card === firstCard)
     // 4. 이미 매칭되어 뒤집힌 카드라면(card.classList.contains('is-matched'))
     // 함수 실행을 중단하고 아무 동작도 하지 않음
+
+    // 첫 카드 클릭 시 타이머 시작
+    if(!timerStarted) startTimer(); 
 
     card.classList.add('is-flipped');
 
@@ -152,3 +192,11 @@ board.addEventListener('click', e => {
         }
     }
 });
+
+
+
+
+
+
+
+// 타이머기능
