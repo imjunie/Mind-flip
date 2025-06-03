@@ -1,11 +1,12 @@
 // 
 const params = new URLSearchParams(window.location.search);
-const value = params.get("value");
-const mode = params.get("mode") || "easy"; // 기본값을 "easy"로 설정
+const value = params.get("value"); // 그림 갯수
+
 
 if (value) {
     document.body.classList.add(`value-${value}`);
 }
+
 
 // 이미지의 id들을 array(배열) 안에 넣음
 const id_list = ["52894", "52928", "53049", "52891", "52898", "52910", "52897", "52776", "52860", "52888", "52862", "53082", "52917", "52889", "53024", "52833", "53046"];
@@ -78,10 +79,10 @@ let timerInterval;
 
 function updateDisplay() {
       const total = (timerInterval ? Date.now() - startTime : 0);
-    //   const mins = Math.floor(total / 60000).toString().padStart(2, '0');
-      const secs = Math.floor((total % 60000) / 1000).toString().padStart(2, '0');
-      const ms = Math.floor((total % 1000) / 10).toString().padStart(2, '0');
-      document.getElementById('Timer').textContent = `${secs}.${ms}`;
+      const secs = Math.floor((total % 60000) / 1000);
+      const ms = Math.floor((total % 1000) / 10);
+      document.getElementById('Timer').textContent =
+      `${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
     }
 
 function startStopwatch() {
@@ -100,8 +101,6 @@ let lockBoard = false;
 
 board.addEventListener('click', e => {
 
-    startStopwatch();
-
     // .addEventListener: 사용자가 클릭할 때마다 안에 있는 프로그램이 실행됨
     const card = e.target.closest('.card');
     if (!card || lockBoard || card === firstCard || card.classList.contains('is-matched')) return;
@@ -111,8 +110,9 @@ board.addEventListener('click', e => {
     // 3. 이미 첫 번째 카드로 선택된 카드거나(card === firstCard)
     // 4. 이미 매칭되어 뒤집힌 카드라면(card.classList.contains('is-matched'))
     // 함수 실행을 중단하고 아무 동작도 하지 않음
-
-
+    
+    startStopwatch();
+    
     card.classList.add('is-flipped');
 
     if (!firstCard) { // 뒤집힌 카드가 없으면
@@ -138,7 +138,7 @@ board.addEventListener('click', e => {
                 card.classList.remove('is-flipped');
                 firstCard = null;
                 lockBoard = false;
-            }, 700);
+            }, 500);
         }
     }
 });

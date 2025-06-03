@@ -43,7 +43,6 @@ body{
 
 .Header {
     /* background-color: #d41135; */
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -60,9 +59,6 @@ body{
     /* font-family: 'Modak', fantasy; */
     letter-spacing: 2px;
     font-family: 'Rubik Bubbles', fantasy;
-    
-    
-
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 

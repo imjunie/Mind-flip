@@ -1,11 +1,13 @@
 // 
 const params = new URLSearchParams(window.location.search);
-const value = params.get("value");
-const mode = params.get("mode") || "easy"; // 기본값을 "easy"로 설정
+const value = params.get("value"); // 그림 갯수
+const difficulty = params.get("dif"); // easy 또는 hard
+
 
 if (value) {
     document.body.classList.add(`value-${value}`);
 }
+
 
 // 이미지의 id들을 array(배열) 안에 넣음
 const id_list = ["52894", "52928", "53049", "52891", "52898", "52910", "52897", "52776", "52860", "52888", "52862", "53082", "52917", "52889", "53024", "52833", "53046"];
@@ -72,24 +74,43 @@ const board = document.getElementById('board');
 renderCards(cards);
 
 
-// CHANGE HERE!! TO TIMER
-// Stopwatch 설정정
-let timerInterval;
+// 타이머 설정
+let timeSet; 
+let startTime;
+let stopTime;
+let timerInterval; // 간격
 
 function updateDisplay() {
-      const total =  (timerInterval ? Date.now() - startTime : 0);
-      const mins = Math.floor(total / 60000).toString().padStart(2, '0');
-      const secs = Math.floor((total % 60000) / 1000).toString().padStart(2, '0');
-    //   const ms = Math.floor((total % 1000) / 10).toString().padStart(2, '0');
-      document.getElementById('Timer').textContent = `${mins}:${secs}`;
-    }
-
-function startStopwatch() {
-    if (!timerInterval) {
-    startTime = Date.now();
-    timerInterval = setInterval(updateDisplay, 100);
+    if (Date.now() < stopTime) { // 지금 시간이 stopTime보다 작으면 ("시간이 남았다")
+        let remaining = stopTime - Date.now();
+        // console.log(remaining);
+        let secs = Math.floor((remaining % 60000) / 1000);
+        let ms = Math.floor((remaining % 1000) / 10);
+            
+        document.getElementById('Timer').textContent = 
+        `${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
+    } else { // 지금 시간이 stopTime과 같으면 (시간이 끝났다)
+        clearInterval(timerInterval);
+        timerInterval = null;
+        document.getElementById('Timer').textContent = "00.00";
+        lockBoard = true;
+        setTimeout(() => alert('시간 종료!'), 10);
     }
 }
+
+function startTimer() {
+    if (!timerInterval) {
+        if (difficulty == "easy") {
+            timeSet = 60000;
+        } else if (difficulty == "hard") {
+            timeSet = 30000;
+        }
+        startTime = Date.now()
+        stopTime = startTime + timeSet;
+        timerInterval = setInterval(updateDisplay, 100);
+    }
+}
+
 
 // 게임 로직
 let firstCard = null;
@@ -100,8 +121,6 @@ let lockBoard = false;
 
 board.addEventListener('click', e => {
 
-    // startStopwatch();
-
     // .addEventListener: 사용자가 클릭할 때마다 안에 있는 프로그램이 실행됨
     const card = e.target.closest('.card');
     if (!card || lockBoard || card === firstCard || card.classList.contains('is-matched')) return;
@@ -111,7 +130,8 @@ board.addEventListener('click', e => {
     // 3. 이미 첫 번째 카드로 선택된 카드거나(card === firstCard)
     // 4. 이미 매칭되어 뒤집힌 카드라면(card.classList.contains('is-matched'))
     // 함수 실행을 중단하고 아무 동작도 하지 않음
-
+    
+    startTimer();
 
     card.classList.add('is-flipped');
 
@@ -131,14 +151,19 @@ board.addEventListener('click', e => {
                 clearInterval(timerInterval);
                 timerInterval = null;
             }
+
         } else {
             lockBoard = true;
             setTimeout(() => {
                 firstCard.classList.remove('is-flipped');
                 card.classList.remove('is-flipped');
                 firstCard = null;
-                lockBoard = false;
-            }, 700);
+                if (timerInterval) {
+                    lockBoard = false;
+                } else {
+                    lockBoard = true;
+                }
+            }, 500);
         }
     }
 });
