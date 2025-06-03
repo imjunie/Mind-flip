@@ -1,8 +1,12 @@
 // 
 const params = new URLSearchParams(window.location.search);
-const value = params.get("value"); // 그림 갯수
+const value = params.get("value"); // 그림 개수
 const difficulty = params.get("dif"); // easy 또는 hard
 
+const titleElement = document.getElementById("title_TA");
+if (titleElement && (difficulty === "Easy" || difficulty === "Hard")) {
+    titleElement.textContent = `${difficulty}`
+}
 
 if (value) {
     document.body.classList.add(`value-${value}`);
@@ -45,7 +49,7 @@ async function imageAPICall(id) {
     }
 }
 
-
+//
 async function renderCards(cards) {
     for (const id of cards) {
         const img_id = id_list[id];
@@ -60,6 +64,8 @@ async function renderCards(cards) {
         `);
     } 
 }
+
+
 
 let images = generateRandomNumbers(value, (id_list.length - 1));
 console.log(images);
@@ -100,9 +106,9 @@ function updateDisplay() {
 
 function startTimer() {
     if (!timerInterval) {
-        if (difficulty == "easy") {
+        if (difficulty == "Easy") {
             timeSet = 60000;
-        } else if (difficulty == "hard") {
+        } else if (difficulty == "Hard") {
             timeSet = 30000;
         }
         startTime = Date.now()
