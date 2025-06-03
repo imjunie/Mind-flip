@@ -44,12 +44,17 @@ async function imageAPICall(id) {
     }
 }
 
+// function delay(ms) {
+//     return new Promise(resolve => setTimeout(resolve,ms));
+// }
+
 
 async function renderCards(cards) {
     for (const id of cards) {
         const img_id = id_list[id];
         console.log(img_id)
         const imageURL = await imageAPICall(img_id);
+        // delay(1);
 
         board.insertAdjacentHTML('beforeend', `
         <div class="card" data-id="${img_id}">
