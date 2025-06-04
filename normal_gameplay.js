@@ -44,27 +44,45 @@ async function imageAPICall(id) {
     }
 }
 
-// function delay(ms) {
-//     return new Promise(resolve => setTimeout(resolve,ms));
+
+// async function renderCards(cards) {
+//     for (const id of cards) {
+//         const img_id = id_list[id];
+//         console.log(img_id)
+//         const imageURL = await imageAPICall(img_id);
+
+//         board.insertAdjacentHTML('beforeend', `
+//         <div class="card" data-id="${img_id}">
+//             <div class="card__face card__front">?</div>
+//             <div class="card__face card__back"><img class="back-face" src="${imageURL}"/></div>
+//         </div>
+//         `);
+//     } 
 // }
 
 
 async function renderCards(cards) {
-    for (const id of cards) {
+    // Create an array of promises for all API calls
+    const imagePromises = cards.map(async (id) => {
         const img_id = id_list[id];
-        console.log(img_id)
         const imageURL = await imageAPICall(img_id);
-        // delay(1);
+        return { id: img_id, url: imageURL };
+    });
 
-        board.insertAdjacentHTML('beforeend', `
-        <div class="card" data-id="${img_id}">
+    // Wait for all API calls to complete in parallel
+    const cardData = await Promise.all(imagePromises);
+    
+    // Create all card HTML at once
+    const cardsHTML = cardData.map(({ id, url }) => `
+        <div class="card" data-id="${id}">
             <div class="card__face card__front">?</div>
-            <div class="card__face card__back"><img class="back-face" src="${imageURL}"/></div>
+            <div class="card__face card__back"><img class="back-face" src="${url}"/></div>
         </div>
-        `);
-    } 
-}
+    `).join('');
 
+    // Insert all cards in a single DOM operation
+    board.insertAdjacentHTML('beforeend', cardsHTML);
+}
 
 let images = generateRandomNumbers(value, (id_list.length - 1));
 console.log(images);
