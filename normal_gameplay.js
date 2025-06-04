@@ -21,8 +21,7 @@ function generateRandomNumbers(count, max) {
     return Array.from(numbers);
 }
 
-
-// async는
+// async 함수는: 비동기적으로 동작하는 함수
 // 함수 기능: (API를 불러오기) 서버에게 요청을 보내기 -> JSON 형태의 API 데이터를 받기
 async function imageAPICall(id) {
     const apiUrl = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + id;
@@ -62,27 +61,29 @@ async function imageAPICall(id) {
 
 
 async function renderCards(cards) {
-    // Create an array of promises for all API calls
+    // id_list를 이미지 요청 Promise 배열로 변환 -> img_id 배열에 넣기
     const imagePromises = cards.map(async (id) => {
         const img_id = id_list[id];
         const imageURL = await imageAPICall(img_id);
         return { id: img_id, url: imageURL };
     });
 
-    // Wait for all API calls to complete in parallel
+    // 모든 이미지 요청이 완료될 때까지 기다리고, 결과를 배열로 받아오기
     const cardData = await Promise.all(imagePromises);
     
-    // Create all card HTML at once
+    // 각 이미지 데이터를 이용해 카드 HTML 문자열을 생성
     const cardsHTML = cardData.map(({ id, url }) => `
         <div class="card" data-id="${id}">
             <div class="card__face card__front">?</div>
             <div class="card__face card__back"><img class="back-face" src="${url}"/></div>
         </div>
     `).join('');
+    // .join:  모든 카드 HTML을 하나의 문자열로 합침 (함꺼번에)
 
-    // Insert all cards in a single DOM operation
+    // 합쳐진 카드 HTML을 board 엘리먼트의 마지막에 한 번에 추가
     board.insertAdjacentHTML('beforeend', cardsHTML);
 }
+
 
 let images = generateRandomNumbers(value, (id_list.length - 1));
 console.log(images);
