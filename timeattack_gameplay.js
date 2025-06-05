@@ -88,7 +88,7 @@ async function renderCards(cards) {
 
     // 합쳐진 카드 HTML을 board 엘리먼트의 마지막에 한 번에 추가
     board.insertAdjacentHTML('beforeend', cardsHTML);
-}ㄴㄴ
+}
 
 
 let images = generateRandomNumbers(value, (id_list.length - 1));
