@@ -219,9 +219,9 @@ body{
     background-color: #d0def3;
     box-shadow: inset 0 4px 6px #0000001a;
 } 
-#GameMode:focus { /*포커스 됐을 떄*/
+#GameMode:focus { /*포커스 됐을 떄 */
     outline: none;
-    box-shadow: 0 0 0 3px rgb(255, 0, 0);
+    /* box-shadow: 0 0 0 3px rgb(255, 0, 0);  */
 }
 #GameMode:active { /*클릭했을 때*/
     background-color: #d0def3;
@@ -256,7 +256,7 @@ body{
 } 
 #levelBox:focus { /*포커스 됐을 떄*/
     outline: none;
-    box-shadow: 0 0 0 3px rgb(255, 0, 0);
+    /* box-shadow: 0 0 0 3px rgb(255, 0, 0); */
 }
 #levelBox:active { /*클릭했을 때*/
     background-color: #d0def3;
@@ -290,7 +290,7 @@ body{
 } 
 .levelBox:focus { /*포커스 됐을 떄*/
     outline: none;
-    box-shadow: 0 0 0 3px rgb(255, 0, 0);
+    /* box-shadow: 0 0 0 3px rgb(255, 0, 0); */
 }
 .levelBox:active { /*클릭했을 때*/
     background-color: #fff0f3;
@@ -344,7 +344,7 @@ body{
 } 
 #Easy:focus { /*포커스 됐을 떄*/
     outline: none;
-    box-shadow: 0 0 0 3px rgb(255, 0, 0);
+    /* box-shadow: 0 0 0 3px rgb(255, 0, 0); */
 }
 #Easy:active { /*클릭했을 때*/
     background-color: #d3e5ff;
@@ -376,7 +376,7 @@ body{
 } 
 #Hard:focus { /*포커스 됐을 떄*/
     outline: none;
-    box-shadow: 0 0 0 3px rgb(255, 0, 0);
+    /* box-shadow: 0 0 0 3px rgb(255, 0, 0); */
 }
 #Hard:active { /*클릭했을 때*/
     background-color: #ffdff9;
