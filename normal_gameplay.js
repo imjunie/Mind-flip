@@ -195,3 +195,18 @@ board.addEventListener('click', e => {
         }
     }
 });
+
+        // BGM 설정
+        // Audio 객체 생성
+        const bgm = new Audio("ooops-286277.mp3");
+        
+        // 반복 설정
+        bgm.loop = true;
+        
+        // 자동 재생
+        bgm.autoplay = true;
+        
+        // 사용자가 클릭하거나 키 입력을 해야 자동 재생이 허용되는 경우 대비
+        // (바닥을 클릭하면 배경음악이 나옴)
+        document.addEventListener("click", () => {
+            bgm.play();}, { once: true });
