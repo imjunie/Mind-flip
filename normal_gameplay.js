@@ -96,6 +96,7 @@ const board = document.getElementById('board');
 
 let isInitialized = false;   // 렌더링 완료 여부
 let showAllFronts = false;   // 전체 앞면 보여주기 여부
+let isFirstClick = true;     // 스톱워치를 첫 클릭에만 시작하게 하기 위해
 
 // 카드 생성
 (async () => {
@@ -112,7 +113,8 @@ let showAllFronts = false;   // 전체 앞면 보여주기 여부
         document.querySelectorAll('.card').forEach(card => {
             card.classList.remove('is-flipped');
         });
-    }, 3000);
+        isInitialized = true;  // 이제 클릭 가능하게 됨
+    }, 2500);
 })();
 
 
@@ -143,10 +145,18 @@ let lockBoard = false;
 
 
 board.addEventListener('click', e => {
+    if (!isInitialized) return; // 초기 상태면 클릭 무시
 
     // .addEventListener: 사용자가 클릭할 때마다 안에 있는 프로그램이 실행됨
     const card = e.target.closest('.card');
     if (!card || lockBoard || card === firstCard || card.classList.contains('is-matched')) return;
+
+    // 첫 클릭일 때만 스톱워치 시작
+    if (isFirstClick) {
+        startStopwatch();
+        isFirstClick = false;
+    }
+
     // if..
     // 1. 클릭한 요소가 카드가 아니거나(!card)
     // 2. 보드가 잠겨 있거나(lockBoard (== true))
@@ -154,7 +164,7 @@ board.addEventListener('click', e => {
     // 4. 이미 매칭되어 뒤집힌 카드라면(card.classList.contains('is-matched'))
     // 함수 실행을 중단하고 아무 동작도 하지 않음
     
-    startStopwatch();
+    // startStopwatch();
     
     card.classList.add('is-flipped');
 
