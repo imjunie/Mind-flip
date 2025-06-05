@@ -94,19 +94,38 @@ const cards = [...images, ...images].sort(() => Math.random() - 0.5);
 // DOM 요소
 const board = document.getElementById('board');
 
+let isInitialized = false;   // 렌더링 완료 여부
+let showAllFronts = false;   // 전체 앞면 보여주기 여부
+
 // 카드 생성
-renderCards(cards);
+(async () => {
+    await renderCards(cards);  // 카드 생성 완료 기다림
+
+    // 카드 렌더링 완료 후 3초간 앞면 보여주기
+    showAllFronts = true;
+    document.querySelectorAll('.card').forEach(card => {
+        card.classList.add('is-flipped');
+    });
+
+    setTimeout(() => {
+        showAllFronts = false;
+        document.querySelectorAll('.card').forEach(card => {
+            card.classList.remove('is-flipped');
+        });
+    }, 3000);
+})();
+
 
 
 // Stopwatch 설정
 let timerInterval;
 
 function updateDisplay() {
-      const total = (timerInterval ? Date.now() - startTime : 0);
-      const secs = Math.floor((total % 60000) / 1000);
-      const ms = Math.floor((total % 1000) / 10);
-      document.getElementById('Timer').textContent =
-      `${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
+    const total = (timerInterval ? Date.now() - startTime : 0);
+    const secs = Math.floor((total % 60000) / 1000);
+    const ms = Math.floor((total % 1000) / 10);
+    document.getElementById('Timer').textContent =
+    `${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
     }
 
 function startStopwatch() {

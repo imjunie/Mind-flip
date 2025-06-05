@@ -100,8 +100,26 @@ const cards = [...images, ...images].sort(() => Math.random() - 0.5);
 // DOM 요소
 const board = document.getElementById('board');
 
+let isInitialized = false;   // 렌더링 완료 여부
+let showAllFronts = false;   // 전체 앞면 보여주기 여부
+
 // 카드 생성
-renderCards(cards);
+(async () => {
+    await renderCards(cards);  // 카드 생성 완료 기다림
+
+    // 카드 렌더링 완료 후 3초간 앞면 보여주기
+    showAllFronts = true;
+    document.querySelectorAll('.card').forEach(card => {
+        card.classList.add('is-flipped');
+    });
+
+    setTimeout(() => {
+        showAllFronts = false;
+        document.querySelectorAll('.card').forEach(card => {
+            card.classList.remove('is-flipped');
+        });
+    }, 3000);
+})();
 
 
 // 타이머 설정
