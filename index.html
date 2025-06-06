@@ -22,6 +22,7 @@
 <body>
     
     <div class="maincontainer">
+        <div id="soundbtn"><img src="./images/soundmuted.png" alt="Sound Button"></div>
         <h1 class="Header">
             <div id="title">Mind Flip</div>
             <div id="Timer">Timer</div>
@@ -37,9 +38,10 @@
             <a id="rules" href="./rules page1.html"><div>Rules</div></a>
         </div>
     </div>
-    <script src="script.js"></script>
+
+    <!-- <script src="script.js"></script> -->
     
-    <script>
+    <!-- <script>
         // BGM 설정
         // Audio 객체 생성
         const bgm = new Audio("cooking-childhood-cute-happy-song-289238.mp3");
@@ -54,7 +56,9 @@
         // (바닥을 클릭하면 배경음악이 나옴)
         document.addEventListener("click", () => {
             bgm.play();}, { once: true });
-    </script>
+    </script> -->
+
+    <script src="audio_play.js"></script>
 </body>
 
 </html>

@@ -14,7 +14,7 @@ const id_list = ["52894", "52928", "53049", "52891", "52898", "52910", "52897", 
 // 랜덤(무작위) 정수 생성
 function generateRandomNumbers(count, max) {
     let numbers = new Set();
-    while (numbers.size < count){
+    while (numbers.size < count) {
         let random = Math.floor(Math.random() * (max + 1));
         numbers.add(random);
     }
@@ -27,11 +27,11 @@ async function imageAPICall(id) {
     const apiUrl = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=' + id;
     console.log(apiUrl);
     try {
-        const response = await fetch(apiUrl, {method: "GET"}); // 문자열 받기
+        const response = await fetch(apiUrl, { method: "GET" }); // 문자열 받기
         if (response.status === 200) { // HTTP 응답 상태 코드 참고고
             const data = await response.json(); // 문자열 형태 -> JSON 형태
             console.log(data.meals[0].strMealThumb);
-            
+
             return data.meals[0].strMealThumb; // 이미지의 링크
         }
         else {
@@ -70,7 +70,7 @@ async function renderCards(cards) {
 
     // 모든 이미지 요청이 완료될 때까지 기다리고, 결과를 배열로 받아오기
     const cardData = await Promise.all(imagePromises);
-    
+
     // 각 이미지 데이터를 이용해 카드 HTML 문자열을 생성
     const cardsHTML = cardData.map(({ id, url }) => `
         <div class="card" data-id="${id}">
@@ -127,13 +127,13 @@ function updateDisplay() {
     const secs = Math.floor((total % 60000) / 1000);
     const ms = Math.floor((total % 1000) / 10);
     document.getElementById('Timer').textContent =
-    `${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
-    }
+        `${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
+}
 
 function startStopwatch() {
     if (!timerInterval) {
-    startTime = Date.now();
-    timerInterval = setInterval(updateDisplay, 100);
+        startTime = Date.now();
+        timerInterval = setInterval(updateDisplay, 100);
     }
 }
 
@@ -163,9 +163,9 @@ board.addEventListener('click', e => {
     // 3. 이미 첫 번째 카드로 선택된 카드거나(card === firstCard)
     // 4. 이미 매칭되어 뒤집힌 카드라면(card.classList.contains('is-matched'))
     // 함수 실행을 중단하고 아무 동작도 하지 않음
-    
+
     // startStopwatch();
-    
+
     card.classList.add('is-flipped');
 
     if (!firstCard) { // 뒤집힌 카드가 없으면
@@ -178,7 +178,7 @@ board.addEventListener('click', e => {
             firstCard.classList.add('is-matched');
             card.classList.add('is-matched');
             firstCard = null;
-            
+
             if (document.querySelectorAll('.is-matched').length === cards.length) {
                 setTimeout(() => alert('🎉 전부 맞혔어요!'), 10); // in ms (works like delay, run the function after certain ms)
                 clearInterval(timerInterval);
@@ -196,17 +196,41 @@ board.addEventListener('click', e => {
     }
 });
 
-        // BGM 설정
-        // Audio 객체 생성
-        const bgm = new Audio("ooops-286277.mp3");
-        
-        // 반복 설정
-        bgm.loop = true;
-        
-        // 자동 재생
-        bgm.autoplay = true;
-        
-        // 사용자가 클릭하거나 키 입력을 해야 자동 재생이 허용되는 경우 대비
-        // (바닥을 클릭하면 배경음악이 나옴)
-        document.addEventListener("click", () => {
-            bgm.play();}, { once: true });
+
+
+
+// 1. 요소 정확히 선택
+const soundBtn = document.getElementById("soundbtn");
+const soundImg = soundBtn.querySelector("img"); // ✅ img 태그 선택
+
+// 2. 오디오 초기화
+const bgm = new Audio("audio/ooops-286277.mp3");
+bgm.loop = true;
+let isPlaying = false;
+
+// ✅ 3-1. 페이지 어디든 클릭 시 한번만 자동 재생 시도
+document.addEventListener("click", () => {
+    if (!isPlaying) {
+        bgm.play().then(() => {
+            soundImg.src = "./images/sound.png";
+            isPlaying = true;
+        }).catch(e => console.warn("자동재생 실패:", e));
+    }
+}, { once: true });
+
+// ✅ 3-2. 버튼 클릭으로 음소거 / 해제 제어
+soundBtn.addEventListener("click", async () => {
+    if (isPlaying) {
+        bgm.pause();
+        soundImg.src = "./images/soundmuted.png";
+        isPlaying = false;
+    } else {
+        try {
+            await bgm.play();
+            soundImg.src = "./images/sound.png";
+            isPlaying = true;
+        } catch (e) {
+            console.error("오디오 재생 실패:", e);
+        }
+    }
+});

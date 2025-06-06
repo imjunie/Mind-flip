@@ -224,17 +224,38 @@ board.addEventListener('click', e => {
     }
 });
 
-    // BGM 설정
-    // Audio 객체 생성
-    const bgm = new Audio("clockwork-adventure-steampunk-music-no-melody-288522.mp3");
-        
-    // 반복 설정
-    bgm.loop = true;
-        
-    // 자동 재생
-    bgm.autoplay = true;
-        
-    // 사용자가 클릭하거나 키 입력을 해야 자동 재생이 허용되는 경우 대비
-    // (바닥을 클릭하면 배경음악이 나옴)
-    document.addEventListener("click", () => {
-        bgm.play();}, { once: true });
+// 1. 요소 정확히 선택
+const soundBtn = document.getElementById("soundbtn");
+const soundImg = soundBtn.querySelector("img"); // ✅ img 태그 선택
+
+// 2. 오디오 초기화
+const bgm = new Audio("audio/ooops-286277.mp3");
+bgm.loop = true;
+let isPlaying = false;
+
+// ✅ 3-1. 페이지 어디든 클릭 시 한번만 자동 재생 시도
+document.addEventListener("click", () => {
+    if (!isPlaying) {
+        bgm.play().then(() => {
+            soundImg.src = "./images/sound.png";
+            isPlaying = true;
+        }).catch(e => console.warn("자동재생 실패:", e));
+    }
+}, { once: true });
+
+// ✅ 3-2. 버튼 클릭으로 음소거 / 해제 제어
+soundBtn.addEventListener("click", async () => {
+    if (isPlaying) {
+        bgm.pause();
+        soundImg.src = "./images/soundmuted.png";
+        isPlaying = false;
+    } else {
+        try {
+            await bgm.play();
+            soundImg.src = "./images/sound.png";
+            isPlaying = true;
+        } catch (e) {
+            console.error("오디오 재생 실패:", e);
+        }
+    }
+});
