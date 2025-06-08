@@ -28,6 +28,7 @@ body.value-12 .game-board {
     font-family: 'Lato', fantasy;
     font-size: 20px;
     font-weight: bold;
+    text-decoration: none; 
 
     /*카드 크기*/
     transform-style: preserve-3d; /*3D 뒤집기 효과*/
