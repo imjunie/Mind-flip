@@ -126,7 +126,7 @@ function updateDisplay() {
     const total = (timerInterval ? Date.now() - startTime : 0);
     const secs = Math.floor((total % 60000) / 1000);
     const ms = Math.floor((total % 1000) / 10);
-    document.getElementById('Timer').textContent =
+    document.getElementById('timer').textContent =
         `${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
 }
 

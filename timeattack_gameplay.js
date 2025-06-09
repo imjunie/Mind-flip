@@ -136,12 +136,12 @@ function updateDisplay() {
         let secs = Math.floor((remaining % 60000) / 1000);
         let ms = Math.floor((remaining % 1000) / 10);
             
-        document.getElementById('Timer').textContent = 
+        document.getElementById('timer').textContent = 
         `${secs.toString().padStart(2, '0')}.${ms.toString().padStart(2, '0')}`;
     } else { // 지금 시간이 stopTime과 같으면 (시간이 끝났다)
         clearInterval(timerInterval);
         timerInterval = null;
-        document.getElementById('Timer').textContent = "00.00";
+        document.getElementById('timer').textContent = "00.00";
         lockBoard = true;
         setTimeout(() => alert('시간 종료!'), 10);
     }

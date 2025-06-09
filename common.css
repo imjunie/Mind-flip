@@ -19,7 +19,7 @@ body{
     height: 100vh;
 }
 
-.maincontainer {
+.Maincontainer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -73,7 +73,7 @@ body{
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
-#Timer {
+#timer {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -423,7 +423,7 @@ body{
 
 
 
-.bottom {
+.Bottom {
     /* background-color: antiquewhite; */
     display: flex;
     flex-direction: row;
