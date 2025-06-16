@@ -26,16 +26,17 @@
 
 
 
-// 1. 요소 정확히 선택
+// 오디오
+// 요소 선택
 const soundBtn = document.getElementById("soundbtn");
 const soundImg = soundBtn.querySelector("img"); // ✅ img 태그 선택
 
-// 2. 오디오 초기화
+// 오디오 초기화(처음부터)
 const bgm = new Audio("audio/cooking-childhood-cute-happy-song-289238.mp3");
 bgm.loop = true;
 let isPlaying = false;
 
-// ✅ 3-1. 페이지 어디든 클릭 시 한번만 자동 재생 시도
+// 페이지 아무데나 클릭 한번만 -> 자동 재생
 document.addEventListener("click", () => {
     if (!isPlaying) {
         bgm.play().then(() => {
@@ -45,7 +46,7 @@ document.addEventListener("click", () => {
     }
 }, { once: true });
 
-// ✅ 3-2. 버튼 클릭으로 음소거 / 해제 제어
+// 버튼 클릭으로 음소거 / 해제 제어
 soundBtn.addEventListener("click", async () => {
     if (isPlaying) {
         bgm.pause();
